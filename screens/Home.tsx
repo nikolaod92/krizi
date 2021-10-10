@@ -1,40 +1,47 @@
 import React, { useState } from "react";
-import { Text, View } from "react-native";
-import EStyleSheet from "react-native-extended-stylesheet";
+import { StyleSheet, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
-import Button from "../components/Button";
-import Input from "../components/Input";
+import Button from "../components/ui/Button";
+import IconButton from "../components/ui/IconButton";
+import Input from "../components/ui/Input";
+import MyAppText from "../components/ui/MyAppText";
+import TicketListItem from "../components/TicketListItem";
+import TicketList from "../components/TicketList";
+import Flex from "./../components/ui/Flex";
+import useFetch from "./../hooks/useFetch";
 
 const Home = () => {
   const { colors } = useTheme();
-  const [loading, setLoading] = useState(false);
 
   return (
     <View style={styles.container}>
-      <Input />
-      <Button
-        title="Dodaj"
-        color="red"
-        icon="add"
-        isLoading={loading}
-        onClick={() => {
-          setLoading(true);
-          setTimeout(() => setLoading(false), 2000);
-        }}
-      />
+      <Flex>
+        <Input />
+        <Button title="Dodaj" color={colors.primary} icon="add-circle-outline" />
+      </Flex>
+      <Flex>
+        <TicketList>
+          <TicketListItem />
+          <TicketListItem />
+          <TicketListItem />
+          <TicketListItem />
+        </TicketList>
+      </Flex>
     </View>
   );
 };
 
 export default Home;
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    backgroundColor: "#fff",
+    backgroundColor: "#f7f7f7",
     alignItems: "center",
-    justifyContent: "center"
+    padding: 12
+  },
+  text: {
+    fontSize: 16
   }
 });

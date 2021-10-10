@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, TextInput, View } from "react-native";
-import EStyleSheet from "react-native-extended-stylesheet";
+import { TextInput, View, StyleSheet } from "react-native";
 
 interface InputProps {
   onChangeText?: () => void;
@@ -21,18 +20,21 @@ const Input: React.FC<InputProps> = ({ onChangeText }) => {
 
 export default Input;
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     backgroundColor: "#EDEDED",
-    borderRadius: 6,
-    paddingHorizontal: "1.5rem",
-    paddingVertical: "0.5rem"
+    borderRadius: 8,
+    justifyContent: "center"
   },
   input: {
-    fontSize: "1rem",
+    includeFontPadding: false,
+    textAlignVertical: "center",
+    flex: 1,
+    textAlign: "center",
+    fontSize: 18,
     letterSpacing: 3,
-    fontWeight: "bold",
+    fontFamily: "medium",
     color: "gray"
   }
 });

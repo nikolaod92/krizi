@@ -1,28 +1,34 @@
 import React from "react";
-import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useColorScheme, Dimensions } from "react-native";
+import { NavigationContainer, DarkTheme } from "@react-navigation/native";
+import { useColorScheme } from "react-native";
+import { StatusBar } from "expo-status-bar";
+
+import AppLoading from "expo-app-loading";
+import { useFonts } from "@expo-google-fonts/poppins";
+import fonts from "./assets/fonts";
 
 import Home from "./screens/Home";
-import { StatusBar } from "expo-status-bar";
-import EStyleSheet from "react-native-extended-stylesheet";
+
+import MyTheme from "./constants/MyTheme";
 
 const Stack = createNativeStackNavigator();
-
-const { width } = Dimensions.get("window");
-EStyleSheet.build({
-  $rem: width > 340 ? 18 : 17
-});
 
 export default function App() {
   const scheme = useColorScheme();
 
-  return (
-    <NavigationContainer theme={scheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} options={{ title: "Tiketi" }} />
-      </Stack.Navigator>
-      <StatusBar />
-    </NavigationContainer>
-  );
+  let [fontsLoaded] = useFonts(fonts);
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <NavigationContainer theme={scheme === "dark" ? DarkTheme : MyTheme}>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} options={{ title: "Tiketi" }} />
+        </Stack.Navigator>
+        <StatusBar />
+      </NavigationContainer>
+    );
+  }
 }
