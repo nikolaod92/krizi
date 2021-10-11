@@ -2,7 +2,7 @@ import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 
 interface InputProps {
-  onChangeText?: () => void;
+  onChangeText?: (text: string) => void;
 }
 
 const Input: React.FC<InputProps> = ({ onChangeText }) => {

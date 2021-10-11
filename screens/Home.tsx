@@ -9,16 +9,22 @@ import MyAppText from "../components/ui/MyAppText";
 import TicketListItem from "../components/TicketListItem";
 import TicketList from "../components/TicketList";
 import Flex from "./../components/ui/Flex";
-import useFetch from "./../hooks/useFetch";
+import { fetchTicket } from "../api/fetch";
 
 const Home = () => {
   const { colors } = useTheme();
+  const [pin, setPin] = useState("");
 
   return (
     <View style={styles.container}>
       <Flex>
-        <Input />
-        <Button title="Dodaj" color={colors.primary} icon="add-circle-outline" />
+        <Input onChangeText={(text) => setPin(text)} />
+        <Button
+          title="Dodaj"
+          color={colors.primary}
+          icon="add-circle-outline"
+          onClick={() => fetchTicket(pin)}
+        />
       </Flex>
       <Flex>
         <TicketList>
