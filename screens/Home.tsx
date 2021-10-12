@@ -11,9 +11,26 @@ import TicketList from "../components/TicketList";
 import Flex from "./../components/ui/Flex";
 import { fetchTicket } from "../api/fetch";
 
+import { useSelector, useDispatch } from "react-redux";
+import { addTicket } from "../redux/ticketsSlice";
+import { RootState } from "../redux/store";
+
 const Home = () => {
   const { colors } = useTheme();
   const [pin, setPin] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const ticketList = useSelector((state: RootState) => state.persistedReducer.tickets);
+  const dispatch = useDispatch();
+
+  const handleClick = async () => {
+    setLoading(true);
+    const response = await fetchTicket(pin);
+    if (response?.ticket != null) {
+      dispatch(addTicket(response.ticket));
+    }
+    setLoading(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -22,18 +39,16 @@ const Home = () => {
         <Button
           title="Dodaj"
           color={colors.primary}
-          icon="add-circle-outline"
-          onClick={() => fetchTicket(pin)}
+          icon="add"
+          onClick={handleClick}
+          isLoading={loading}
         />
       </Flex>
-      <Flex>
-        <TicketList>
-          <TicketListItem />
-          <TicketListItem />
-          <TicketListItem />
-          <TicketListItem />
-        </TicketList>
-      </Flex>
+      <TicketList>
+        {ticketList.map((ticket) => (
+          <TicketListItem key={ticket.id} ticketId={ticket.id} />
+        ))}
+      </TicketList>
     </View>
   );
 };

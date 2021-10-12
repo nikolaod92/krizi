@@ -18,7 +18,7 @@ export type Ticket = {
   stake: number;
   pairCount: number;
   win: number;
-  matches: [Match];
+  matches: Match[];
 };
 
 export type Error = {

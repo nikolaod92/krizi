@@ -1,6 +1,22 @@
-import React from "react";
+import React, {
+  Ref,
+  RefObject,
+  useRef,
+  ElementType,
+  RefAttributes,
+  useEffect,
+  useState
+} from "react";
 import Color from "color";
-import { ActivityIndicator, Pressable, Text, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  StyleSheet,
+  PressableProps,
+  View,
+  LayoutChangeEvent
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSpring, animated } from "@react-spring/native";
 import MyAppText from "./MyAppText";
@@ -14,24 +30,34 @@ interface Props {
 }
 
 const Button: React.FC<Props> = ({ title, color, icon, isLoading, onClick }) => {
-  const fadeOutProps = useSpring({ opacity: isLoading ? 1 : 0 });
   const fadeInProps = useSpring({ opacity: isLoading ? 0 : 1 });
+  const [dimensions, setDimensions] = useState<{ width: number; height: number }>();
 
   return (
     <Pressable
+      onLayout={(e) => {
+        const { width, height } = e.nativeEvent.layout;
+        console.log(width);
+        setDimensions({ width, height });
+      }}
       onPress={onClick}
       style={({ pressed }) => [
         styles.container,
-        { backgroundColor: pressed ? Color(color).darken(0.1).toString() : color }
+        {
+          backgroundColor: pressed ? Color(color).darken(0.1).toString() : color,
+          ...dimensions
+        }
       ]}
     >
       {isLoading ? (
-        <animated.View style={fadeOutProps}>
+        <animated.View>
           <ActivityIndicator size="small" color="white" />
         </animated.View>
       ) : (
         <animated.View style={[fadeInProps, styles.button]}>
-          <Ionicons name={icon} size={18} color="white" />
+          {/* <View>
+            <Ionicons style={styles.icon} name={icon} size={18} color="white" />
+          </View> */}
           <MyAppText textType="bold" size="lg" style={styles.text}>
             {title}
           </MyAppText>
@@ -45,9 +71,8 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 18,
+    paddingHorizontal: 24,
     paddingVertical: 12,
-    margin: 4,
     borderRadius: 8,
     elevation: 3,
     alignItems: "center",
@@ -61,7 +86,10 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     color: "white",
-    letterSpacing: 0.25,
-    marginLeft: 8
+    marginLeft: 4,
+    letterSpacing: 0.25
+  },
+  icon: {
+    marginLeft: 24
   }
 });

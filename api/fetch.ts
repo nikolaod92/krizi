@@ -22,7 +22,7 @@ export const fetchTicket = async (pin: string): Promise<TicketResponse> => {
     const response: AxiosResponse<any> = await axios(config);
     const { stake, maximumPossibleWinAmountWithBonus, pairsCount, pin } = response.data[0];
     const fetchedMatches = response.data[0].ticketSystems[0].ticketPairs;
-    const matches: [Match] = fetchedMatches.map((match: any): Match => {
+    const matches: Match[] = fetchedMatches.map((match: any): Match => {
       return {
         id: match.eventId,
         date: match.eventStartTime,
@@ -51,7 +51,6 @@ export const fetchTicket = async (pin: string): Promise<TicketResponse> => {
       message: "Tiket ne postoji."
     };
   }
-  console.log(ticket);
 
   return { ticket, error };
 };

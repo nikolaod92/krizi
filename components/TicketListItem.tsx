@@ -7,58 +7,67 @@ import { Ionicons } from "@expo/vector-icons";
 import MyAppText from "./ui/MyAppText";
 import Flex from "./ui/Flex";
 import Badge from "./ui/Badge";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteTicket } from "../redux/ticketsSlice";
+import { RootState } from "../redux/store";
+import { useSpring, animated } from "@react-spring/native";
 
 interface Props {
+  ticketId: string;
   onPress?: ((event: GestureResponderEvent) => void) | null | undefined;
 }
 
-const TicketListItem: React.FC<Props> = ({ onPress }) => {
+const TicketListItem: React.FC<Props> = ({ ticketId, onPress }) => {
   const { colors } = useTheme();
+  const fadeInProps = useSpring<any>({ from: { opacity: 0 }, to: { opacity: 1 } });
+
+  const dispatch = useDispatch();
+  const ticket = useSelector((state: RootState) =>
+    state.persistedReducer.tickets.find((ticket) => ticket.id === ticketId)
+  );
+
+  const handleDelete = () => {
+    dispatch(deleteTicket(ticketId));
+  };
+
+  const AnimatedPressable = animated(Pressable);
 
   return (
-    <View style={styles.container}>
-      <Pressable
-        onPress={onPress}
-        style={({ pressed }) => [
-          { ...styles.info, backgroundColor: pressed ? colors.background : colors.card }
-        ]}
-      >
+    <Flex>
+      <AnimatedPressable onPress={onPress} style={[styles.info, fadeInProps]}>
         <Flex>
           <Ionicons name="add" size={18} color="red" />
-          <MyAppText size="lg">2092278985</MyAppText>
-          <Badge>12</Badge>
+          <MyAppText size="lg">{ticketId}</MyAppText>
+          <Badge>{ticket?.pairCount}</Badge>
         </Flex>
         <Flex>
-          <Badge>100</Badge>
+          <Badge>{ticket?.stake}</Badge>
           <MyAppText size="xl" textType="medium">
-            25.436 <MyAppText size="sm">din.</MyAppText>
+            {ticket?.win} <MyAppText size="sm">din.</MyAppText>
           </MyAppText>
         </Flex>
-      </Pressable>
-      <IconButton icon="trash" color={colors.primary} />
-    </View>
+      </AnimatedPressable>
+      <IconButton icon="trash" color={colors.primary} onClick={handleDelete} />
+    </Flex>
   );
 };
 
 export default TicketListItem;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
   info: {
     flexDirection: "row",
     flex: 1,
+    backgroundColor: "white",
     marginRight: 8,
     height: 32,
     paddingHorizontal: 8,
     marginVertical: 3,
     alignItems: "center",
     justifyContent: "space-between",
-    overflow: "hidden",
     borderRadius: 8,
-    elevation: 1
+    elevation: 1,
+    overflow: "hidden"
   },
   numberOfPairs: {
     width: 16,
