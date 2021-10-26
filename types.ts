@@ -9,6 +9,7 @@ export type Match = {
   date: string;
   odds: number;
   market: string;
+  pointLine: number | null;
   home: Team;
   away: Team;
   success: boolean;

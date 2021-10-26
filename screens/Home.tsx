@@ -35,7 +35,7 @@ const Home = ({ navigation }: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: colors.background }}>
       <Flex>
         <Input onChangeText={(text) => setPin(text)} />
         <Button
@@ -66,7 +66,7 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
+
     alignItems: "center",
     padding: 12
   },

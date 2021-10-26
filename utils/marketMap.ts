@@ -116,5 +116,11 @@ export const marketMap: StringMap = {
   tm112gg: "D1/1",
   tm212gg: "G1/1",
   vg2: "II>I",
-  vg1: "II<I"
+  vg1: "II<I",
+  bpkv: "+",
+  bpkm: "-",
+  k1bpkv: "1&+",
+  k2bpkv: "2&+",
+  k1bpkm: "1&-",
+  k2bpkm: "2&-"
 };

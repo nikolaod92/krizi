@@ -1,16 +1,14 @@
 import React from "react";
-import { StyleSheet, View, Pressable, GestureResponderEvent } from "react-native";
+import { StyleSheet, Image, Pressable, GestureResponderEvent } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
 import IconButton from "./ui/IconButton";
-import { Ionicons } from "@expo/vector-icons";
 import MyAppText from "./ui/MyAppText";
 import Flex from "./ui/Flex";
 import Badge from "./ui/Badge";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTicket } from "../redux/ticketsSlice";
 import { RootState } from "../redux/store";
-import { useSpring, animated } from "@react-spring/native";
 
 interface Props {
   ticketId: string;
@@ -19,8 +17,6 @@ interface Props {
 
 const TicketListItem: React.FC<Props> = ({ ticketId, onPress }) => {
   const { colors } = useTheme();
-  const fadeInProps = useSpring<any>({ from: { opacity: 0 }, to: { opacity: 1 } });
-
   const dispatch = useDispatch();
   const ticket = useSelector((state: RootState) =>
     state.persistedReducer.tickets.find((ticket) => ticket.id === ticketId)
@@ -30,13 +26,17 @@ const TicketListItem: React.FC<Props> = ({ ticketId, onPress }) => {
     dispatch(deleteTicket(ticketId));
   };
 
-  const AnimatedPressable = animated(Pressable);
-
   return (
     <Flex>
-      <AnimatedPressable onPress={onPress} style={[styles.info, fadeInProps]}>
+      <Pressable
+        onPress={onPress}
+        style={({ pressed }) => [
+          styles.info,
+          { backgroundColor: pressed ? colors.background : colors.card }
+        ]}
+      >
         <Flex>
-          <Ionicons name="add" size={18} color="red" />
+          <Image style={styles.icon} source={require("../assets/pinnbet.png")} />
           <MyAppText size="md">{ticketId}</MyAppText>
           <Badge>{ticket?.pairCount}</Badge>
         </Flex>
@@ -47,7 +47,7 @@ const TicketListItem: React.FC<Props> = ({ ticketId, onPress }) => {
             <MyAppText size="sm"> din.</MyAppText>
           </MyAppText>
         </Flex>
-      </AnimatedPressable>
+      </Pressable>
       <IconButton icon="trash" color={colors.primary} onClick={handleDelete} />
     </Flex>
   );
@@ -60,14 +60,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
     backgroundColor: "white",
-    marginRight: 8,
-    height: 32,
+    height: 36,
     paddingHorizontal: 8,
     marginVertical: 4,
+    marginRight: 8,
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 8,
     elevation: 1,
     overflow: "hidden"
+  },
+  icon: {
+    width: 16,
+    height: 16
   }
 });

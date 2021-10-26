@@ -46,6 +46,10 @@ export const fetchTicket = async (pin: string): Promise<TicketResponse> => {
           date: match.eventStartTime,
           odds: match.oddsFirst,
           market: formatMarket(match.selectionCodeFirst),
+          pointLine:
+            match.marketCodeFirstMarketBandFirst === "NA"
+              ? null
+              : +match.marketCodeFirstMarketBandFirst,
           home: {
             name: match.homeTeamName,
             score: 0,
