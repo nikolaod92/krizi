@@ -37,13 +37,14 @@ const TicketListItem: React.FC<Props> = ({ ticketId, onPress }) => {
       <AnimatedPressable onPress={onPress} style={[styles.info, fadeInProps]}>
         <Flex>
           <Ionicons name="add" size={18} color="red" />
-          <MyAppText size="lg">{ticketId}</MyAppText>
+          <MyAppText size="md">{ticketId}</MyAppText>
           <Badge>{ticket?.pairCount}</Badge>
         </Flex>
         <Flex>
           <Badge>{ticket?.stake}</Badge>
-          <MyAppText size="xl" textType="medium">
-            {ticket?.win} <MyAppText size="sm">din.</MyAppText>
+          <MyAppText size="lg" textType="medium">
+            {ticket?.win}
+            <MyAppText size="sm"> din.</MyAppText>
           </MyAppText>
         </Flex>
       </AnimatedPressable>
@@ -62,19 +63,11 @@ const styles = StyleSheet.create({
     marginRight: 8,
     height: 32,
     paddingHorizontal: 8,
-    marginVertical: 3,
+    marginVertical: 4,
     alignItems: "center",
     justifyContent: "space-between",
     borderRadius: 8,
     elevation: 1,
     overflow: "hidden"
-  },
-  numberOfPairs: {
-    width: 16,
-    height: 16,
-    paddingHorizontal: 0,
-    borderWidth: 1,
-    borderRadius: 8,
-    textAlign: "center"
   }
 });

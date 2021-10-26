@@ -1,22 +1,6 @@
-import React, {
-  Ref,
-  RefObject,
-  useRef,
-  ElementType,
-  RefAttributes,
-  useEffect,
-  useState
-} from "react";
+import React, { useState } from "react";
 import Color from "color";
-import {
-  ActivityIndicator,
-  Pressable,
-  Text,
-  StyleSheet,
-  PressableProps,
-  View,
-  LayoutChangeEvent
-} from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useSpring, animated } from "@react-spring/native";
 import MyAppText from "./MyAppText";
@@ -37,7 +21,6 @@ const Button: React.FC<Props> = ({ title, color, icon, isLoading, onClick }) => 
     <Pressable
       onLayout={(e) => {
         const { width, height } = e.nativeEvent.layout;
-        console.log(width);
         setDimensions({ width, height });
       }}
       onPress={onClick}
@@ -55,10 +38,7 @@ const Button: React.FC<Props> = ({ title, color, icon, isLoading, onClick }) => 
         </animated.View>
       ) : (
         <animated.View style={[fadeInProps, styles.button]}>
-          {/* <View>
-            <Ionicons style={styles.icon} name={icon} size={18} color="white" />
-          </View> */}
-          <MyAppText textType="bold" size="lg" style={styles.text}>
+          <MyAppText color="white" textType="bold" size="lg" style={styles.text}>
             {title}
           </MyAppText>
         </animated.View>

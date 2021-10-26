@@ -14,8 +14,9 @@ const Badge: React.FC<Props> = ({ children }) => {
   return (
     <MyAppText
       size="sm"
-      textType="regular"
-      style={{ ...styles.container, backgroundColor: colors.primary, color: colors.card }}
+      textType="semibold"
+      color={colors.card}
+      style={{ ...styles.container, backgroundColor: colors.primary }}
     >
       {children}
     </MyAppText>
@@ -26,9 +27,10 @@ export default Badge;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 4,
+    paddingHorizontal: 5,
     paddingVertical: 2,
     borderRadius: 8,
-    textAlign: "center"
+    textAlign: "center",
+    elevation: 1
   }
 });

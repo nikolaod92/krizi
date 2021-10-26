@@ -1,6 +1,5 @@
-import { hasProps } from "@react-spring/core/dist/declarations/src/helpers";
 import React from "react";
-import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
+import { StyleSheet, View, ViewStyle } from "react-native";
 
 interface Props {
   children: React.ReactNode;

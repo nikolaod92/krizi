@@ -1,5 +1,5 @@
 import React from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import { TextInput, View, StyleSheet, TextInputProps } from "react-native";
 
 interface InputProps {
   onChangeText?: (text: string) => void;
@@ -25,7 +25,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#EDEDED",
     borderRadius: 8,
-    justifyContent: "center"
+    justifyContent: "center",
+    marginRight: 10
   },
   input: {
     includeFontPadding: false,

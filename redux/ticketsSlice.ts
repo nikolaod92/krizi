@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Ticket } from "../api/types";
+import { Ticket } from "../types";
 
 interface TicketsState {
   tickets: Ticket[];

@@ -20,8 +20,8 @@ export default IconButton;
 
 const styles = StyleSheet.create({
   container: {
-    width: 28,
-    height: 28,
+    width: 26,
+    height: 26,
     borderRadius: 14,
     alignItems: "center",
     justifyContent: "center",

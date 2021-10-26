@@ -3,9 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { useTheme } from "@react-navigation/native";
 
 import Button from "../components/ui/Button";
-import IconButton from "../components/ui/IconButton";
 import Input from "../components/ui/Input";
-import MyAppText from "../components/ui/MyAppText";
 import TicketListItem from "../components/TicketListItem";
 import TicketList from "../components/TicketList";
 import Flex from "./../components/ui/Flex";
@@ -14,8 +12,12 @@ import { fetchTicket } from "../api/fetch";
 import { useSelector, useDispatch } from "react-redux";
 import { addTicket } from "../redux/ticketsSlice";
 import { RootState } from "../redux/store";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types";
 
-const Home = () => {
+type Props = NativeStackScreenProps<RootStackParamList, "Home">;
+
+const Home = ({ navigation }: Props) => {
   const { colors } = useTheme();
   const [pin, setPin] = useState("");
   const [loading, setLoading] = useState(false);
@@ -46,7 +48,13 @@ const Home = () => {
       </Flex>
       <TicketList>
         {ticketList.map((ticket) => (
-          <TicketListItem key={ticket.id} ticketId={ticket.id} />
+          <TicketListItem
+            onPress={() => {
+              navigation.navigate("Ticket", { id: ticket.id });
+            }}
+            key={ticket.id}
+            ticketId={ticket.id}
+          />
         ))}
       </TicketList>
     </View>
@@ -64,5 +72,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16
-  }
+  },
+  ticketList: {}
 });

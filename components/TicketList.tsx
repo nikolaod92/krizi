@@ -1,18 +1,19 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const TicketList: React.FC<Props> = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+  return <ScrollView style={styles.container}>{children}</ScrollView>;
 };
 
 export default TicketList;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%"
+    width: "100%",
+    marginTop: 6
   }
 });
