@@ -40,11 +40,10 @@ const MyStack = () => {
             </MyAppText>
           ),
           animation: "slide_from_right",
-
           headerStyle: {
             backgroundColor: colors.primary
           },
-          headerTintColor: colors.card
+          headerTintColor: "white"
         })}
       />
     </Stack.Navigator>

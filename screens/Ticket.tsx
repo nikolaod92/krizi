@@ -38,15 +38,15 @@ const Ticket = ({ route }: Props) => {
           backgroundColor: colors.primary
         }}
       >
-        <MyAppText textType="semibold" color="white" size="lg">
+        <MyAppText color="white" size="lg">
           {ticket?.stake}{" "}
-          <MyAppText color="white" size="sm">
+          <MyAppText color="white" size="xs">
             din.
           </MyAppText>
         </MyAppText>
-        <MyAppText textType="semibold" color="white" size="xl">
+        <MyAppText textType="bold" color="white" size="xl">
           {ticket?.win}{" "}
-          <MyAppText color="white" size="sm">
+          <MyAppText color="white" size="xs">
             din.
           </MyAppText>
         </MyAppText>
@@ -60,7 +60,7 @@ export default Ticket;
 const styles = StyleSheet.create({
   ticketWinInfo: {
     paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 6,
     justifyContent: "space-between"
   }
 });

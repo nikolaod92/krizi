@@ -28,6 +28,7 @@ export const formatName = (name: string): string => {
     "Utd.": "United",
     Utd: "United",
     U19: "",
+    U20: "",
     U21: "",
     U23: "",
     II: ""

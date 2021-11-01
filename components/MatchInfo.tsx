@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Pressable, StyleSheet, View, Animated } from "react-native";
+import { Pressable, StyleSheet, View, Animated, Vibration } from "react-native";
 import { RouteProp, useRoute, useTheme } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { changeScore } from "../redux/ticketsSlice";
@@ -26,7 +26,6 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
   const dispatch = useDispatch();
 
   const animatedValue = useRef(new Animated.Value(0)).current;
-
   const interpolateColors = animatedValue.interpolate({
     inputRange: [0, 100],
     outputRange: [colors.background, colors.card]
@@ -42,7 +41,7 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
 
   const handleScoreChange = (teamName: string, score: number) => {
     if (params) {
-      score > 0 && playSound("flashscore");
+      if (score > 0) playSound("flashscore");
       dispatch(changeScore({ teamName, score, ticketId: params.id, matchId: match.id }));
     }
   };
@@ -110,7 +109,6 @@ const styles = StyleSheet.create({
   },
   dateTime: {
     paddingLeft: 6,
-    marginRight: 2,
     alignItems: "center"
   },
   score: {
@@ -122,15 +120,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6
   },
   market: {
-    position: "relative",
     minWidth: 48,
     alignItems: "center"
-  },
-  image: {
-    position: "absolute",
-    top: -7,
-    left: 1,
-    width: 46,
-    height: 42
   }
 });

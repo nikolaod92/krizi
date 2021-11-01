@@ -48,10 +48,8 @@ const TicketListItem: React.FC<Props> = ({ ticketId, onPress }) => {
     >
       <Pressable
         onPress={onPress}
-        style={({ pressed }) => [
-          styles.info,
-          { backgroundColor: pressed ? colors.background : colors.card }
-        ]}
+        android_ripple={{ color: colors.background }}
+        style={{ ...styles.info, backgroundColor: colors.card }}
       >
         <Flex>
           <Image style={styles.icon} source={require("../assets/pinnbet.png")} />

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { NavigationContainer, DarkTheme } from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { useColorScheme } from "react-native";
 
 import { Provider } from "react-redux";

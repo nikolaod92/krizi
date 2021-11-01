@@ -6,6 +6,9 @@ export const marketMap: StringMap = {
   kx: "X",
   ds1x: "1X",
   dsx2: "X2",
+  ppx: "PX",
+  pp1: "P1",
+  pp2: "P2",
   sk1pp1: "1vP1",
   sk2pp2: "2vP2",
   skxppx: "XvPX",
@@ -77,6 +80,9 @@ export const marketMap: StringMap = {
   pg1v: "1+I",
   pg2v: "2+I",
   pg3v: "3+I",
+  dg1v: "1+II",
+  dg2v: "2+II",
+  dg3v: "3+II",
   k1tgg: "1&GG",
   k2tgg: "2&GG",
   ds1xtgg: "1X&GG",
@@ -128,5 +134,7 @@ export const marketMap: StringMap = {
   k1bpkv: "1&+",
   k2bpkv: "2&+",
   k1bpkm: "1&-",
-  k2bpkm: "2&-"
+  k2bpkm: "2&-",
+  k1pg1v: "1&1+I",
+  k2pg1v: "2&1+I"
 };

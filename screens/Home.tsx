@@ -28,22 +28,24 @@ const Home = ({ navigation }: Props) => {
   const ticketList = useSelector((state: RootState) => state.persistedReducer.tickets);
   const dispatch = useDispatch();
 
+  const handleError = (error: string) => {
+    playSound("error");
+    setError(error);
+    setLoading(false);
+  };
+
   const handleClick = async () => {
     setError("");
     setLoading(true);
 
     if (pin.length !== 10) {
-      playSound("error");
-      setError("Pin mora imati 10 brojeva.");
-      setLoading(false);
+      handleError("Pin mora imati 10 brojeva.");
       return;
     }
 
     const ticketAlreadyInState = ticketList.find((ticket) => ticket.id === pin);
     if (ticketAlreadyInState) {
-      playSound("error");
-      setError("Tiket je već u listi.");
-      setLoading(false);
+      handleError("Tiket je već u listi.");
       return;
     }
 
@@ -51,6 +53,9 @@ const Home = ({ navigation }: Props) => {
     if (response?.ticket != null) {
       playSound("add");
       dispatch(addTicket(response.ticket));
+    } else {
+      handleError("Tiket ne postoji na serveru.");
+      return;
     }
     setLoading(false);
   };
@@ -58,7 +63,13 @@ const Home = ({ navigation }: Props) => {
   return (
     <View style={{ ...styles.container, backgroundColor: colors.background }}>
       <Flex>
-        <Input onChangeText={(text) => setPin(text)} />
+        <Input
+          keyboardType="numeric"
+          maxLength={10}
+          placeholder="PIN"
+          placeholderTextColor="#cccccc"
+          onChangeText={(text) => setPin(text)}
+        />
         <Button title="Dodaj" color={colors.primary} onClick={handleClick} isLoading={loading} />
       </Flex>
       <TicketList>

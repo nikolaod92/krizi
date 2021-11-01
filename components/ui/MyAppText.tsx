@@ -1,38 +1,29 @@
 import React from "react";
-import { ColorValue, StyleSheet, Text, TextStyle } from "react-native";
+import { ColorValue, StyleSheet, Text, TextProps } from "react-native";
 import { textSizes as sizes } from "../../constants/sizes";
 import { useTheme } from "@react-navigation/native";
 
-interface Props {
+interface Props extends TextProps {
   textType?: "light" | "regular" | "medium" | "semibold" | "bold";
-  style?: TextStyle;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   color?: ColorValue;
-  children: React.ReactNode;
 }
 
-const MyAppText: React.FC<Props> = ({
-  children,
-  style,
-  textType = "regular",
-  size = "md",
-  color
-}) => {
+const MyAppText: React.FC<Props> = ({ textType = "regular", size = "md", color, ...props }) => {
   const { colors } = useTheme();
   return (
     <Text
+      {...props}
       style={[
+        props.style,
         styles.text,
         {
-          ...style,
           fontFamily: textType,
           fontSize: sizes[size],
           color: color ? color : colors.text
         }
       ]}
-    >
-      {children}
-    </Text>
+    ></Text>
   );
 };
 
