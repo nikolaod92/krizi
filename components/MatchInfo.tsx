@@ -1,13 +1,16 @@
-import React from "react";
-import { Image, Pressable, StyleSheet, View } from "react-native";
-import { Match, RootStackParamList, Team } from "../types";
-import Flex from "./ui/Flex";
-import MyAppText from "./ui/MyAppText";
-import { formatDate } from "./../utils/formatter";
+import React, { useEffect, useRef } from "react";
+import { Pressable, StyleSheet, View, Animated } from "react-native";
 import { RouteProp, useRoute, useTheme } from "@react-navigation/native";
-import TeamInfo from "./TeamInfo";
 import { useDispatch } from "react-redux";
 import { changeScore } from "../redux/ticketsSlice";
+
+import { Match, RootStackParamList } from "../types";
+import { formatDate } from "./../utils/formatter";
+
+import Flex from "./ui/Flex";
+import TeamInfo from "./TeamInfo";
+import MyAppText from "./ui/MyAppText";
+import { playSound } from "../utils/sound";
 
 interface Props {
   match: Match;
@@ -22,15 +25,34 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
   const { params } = useRoute<TicketScreenRouteProp>();
   const dispatch = useDispatch();
 
+  const animatedValue = useRef(new Animated.Value(0)).current;
+
+  const interpolateColors = animatedValue.interpolate({
+    inputRange: [0, 100],
+    outputRange: [colors.background, colors.card]
+  });
+
+  useEffect(() => {
+    Animated.timing(animatedValue, {
+      toValue: match.success ? 100 : 0,
+      duration: 200,
+      useNativeDriver: false
+    }).start();
+  }, [match.success]);
+
   const handleScoreChange = (teamName: string, score: number) => {
-    if (params) dispatch(changeScore({ teamName, score, ticketId: params.id, matchId: match.id }));
+    if (params) {
+      score > 0 && playSound("flashscore");
+      dispatch(changeScore({ teamName, score, ticketId: params.id, matchId: match.id }));
+    }
   };
 
   return (
-    <Flex
+    <Animated.View
       style={{
         ...styles.container,
-        backgroundColor: match.success ? colors.card : colors.background
+        backgroundColor: interpolateColors,
+        borderBottomColor: colors.border
       }}
     >
       <Flex>
@@ -43,13 +65,21 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
           </MyAppText>
         </View>
         <View>
-          <TeamInfo handlePress={handleScoreChange} team={match.home} />
-          <TeamInfo handlePress={handleScoreChange} team={match.away} />
+          <TeamInfo
+            handlePress={handleScoreChange}
+            losing={match.home.score < match.away.score}
+            team={match.home}
+          />
+          <TeamInfo
+            handlePress={handleScoreChange}
+            losing={match.home.score > match.away.score}
+            team={match.away}
+          />
         </View>
       </Flex>
       <Flex>
         <Pressable style={styles.market} onPress={() => handleSuccess(match.id)}>
-          <MyAppText style={{ letterSpacing: 1 }} size="sm" textType="light">
+          <MyAppText style={{ letterSpacing: 0.5 }} size="sm" textType="light">
             {match.market}
             {match.pointLine && match.pointLine.toFixed(1)}
           </MyAppText>
@@ -57,7 +87,7 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
             {match.odds.toFixed(2)}
           </MyAppText>
         </Pressable>
-        <View style={styles.score}>
+        <View style={{ ...styles.score, borderLeftColor: colors.border }}>
           <MyAppText textType="semibold" size="lg" color={colors.primary}>
             {match.home.score}
           </MyAppText>
@@ -66,7 +96,7 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
           </MyAppText>
         </View>
       </Flex>
-    </Flex>
+    </Animated.View>
   );
 };
 
@@ -75,8 +105,8 @@ export default MatchInfo;
 const styles = StyleSheet.create({
   container: {
     justifyContent: "space-between",
-    borderBottomWidth: 2,
-    borderBottomColor: "#eaeaea"
+    borderBottomWidth: 1,
+    flexDirection: "row"
   },
   dateTime: {
     paddingLeft: 6,
@@ -87,8 +117,7 @@ const styles = StyleSheet.create({
     minWidth: 40,
     alignItems: "center",
     justifyContent: "center",
-    borderLeftWidth: 2,
-    borderLeftColor: "#eaeaea",
+    borderLeftWidth: 1,
     marginLeft: 4,
     paddingVertical: 6
   },

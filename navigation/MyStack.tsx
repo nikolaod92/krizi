@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useTheme } from "@react-navigation/native";
 import Ticket from "../screens/Ticket";
 import { RootStackParamList } from "../types";
+import MyAppText from "./../components/ui/MyAppText";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -21,7 +22,7 @@ const MyStack = () => {
           title: "Moji tiketi",
           headerTitleStyle: {
             fontFamily: "medium",
-            color: colors.card
+            color: "white"
           },
           headerStyle: {
             backgroundColor: colors.primary
@@ -32,17 +33,19 @@ const MyStack = () => {
       <Stack.Screen
         name="Ticket"
         component={Ticket}
-        options={{
-          title: "",
-          headerTitleStyle: {
-            fontFamily: "medium",
-            color: colors.card
-          },
+        options={({ route }) => ({
+          headerTitle: () => (
+            <MyAppText textType="medium" color="white" size="xl">
+              {route.params.id}
+            </MyAppText>
+          ),
+          animation: "slide_from_right",
+
           headerStyle: {
             backgroundColor: colors.primary
           },
           headerTintColor: colors.card
-        }}
+        })}
       />
     </Stack.Navigator>
   );

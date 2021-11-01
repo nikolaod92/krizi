@@ -8,12 +8,11 @@ import MyAppText from "./MyAppText";
 interface Props {
   title: string;
   color: string;
-  icon?: React.ComponentProps<typeof Ionicons>["name"];
   isLoading?: boolean;
   onClick?: () => void;
 }
 
-const Button: React.FC<Props> = ({ title, color, icon, isLoading, onClick }) => {
+const Button: React.FC<Props> = ({ title, color, isLoading, onClick }) => {
   const fadeInProps = useSpring({ opacity: isLoading ? 0 : 1 });
   const [dimensions, setDimensions] = useState<{ width: number; height: number }>();
 

@@ -16,7 +16,7 @@ export const formatMarket = (market: string): string => {
 export const formatDate = (date: string) => {
   const dateString = `${date.slice(8, 10)}.${date.slice(5, 7)}.`;
   let timeString = new Date(date);
-  timeString.setHours(timeString.getHours() + 2);
+  timeString.setHours(timeString.getHours() + 1);
   const time = timeString.toISOString().slice(11, 16);
 
   return { date: dateString, time };

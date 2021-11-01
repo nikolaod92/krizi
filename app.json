@@ -7,14 +7,16 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "resizeMode": "cover",
+      "backgroundColor": "#d00704"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "userInterfaceStyle": "automatic",
       "supportsTablet": true
@@ -22,9 +24,10 @@
     "android": {
       "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FD4441"
+      },
+      "package": "com.wilfred92.Krizi"
     },
     "web": {
       "favicon": "./assets/favicon.png"

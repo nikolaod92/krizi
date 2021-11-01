@@ -12,6 +12,7 @@ import { useFonts } from "@expo-google-fonts/poppins";
 import fonts from "./assets/fonts";
 
 import MyTheme from "./constants/MyTheme";
+import MyDarkTheme from "./constants/MyDarkTheme";
 import MyStack from "./navigation/MyStack";
 import { StatusBar } from "expo-status-bar";
 
@@ -26,7 +27,7 @@ export default function App() {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <NavigationContainer theme={scheme === "dark" ? DarkTheme : MyTheme}>
+          <NavigationContainer theme={scheme === "dark" ? MyDarkTheme : MyTheme}>
             <MyStack />
             <StatusBar style="light" />
           </NavigationContainer>

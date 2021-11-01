@@ -1,16 +1,19 @@
-import { useRoute } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { Team } from "../types";
 import Flex from "./ui/Flex";
 import MyAppText from "./ui/MyAppText";
+import { useTheme } from "@react-navigation/native";
 
 interface Props {
   team: Team;
   handlePress: (teamName: string, score: number) => void;
+  losing: boolean;
 }
 
-const TeamInfo: React.FC<Props> = ({ team, handlePress }) => {
+const TeamInfo: React.FC<Props> = ({ team, handlePress, losing }) => {
+  const { colors } = useTheme();
+
   return (
     <Pressable
       onPress={() => handlePress(team.name, 1)}
@@ -21,7 +24,7 @@ const TeamInfo: React.FC<Props> = ({ team, handlePress }) => {
     >
       <Flex style={styles.container}>
         <Image
-          style={{ height: 14, width: 14, marginRight: 2 }}
+          style={styles.image}
           source={{
             uri: team.badge
               ? team.badge
@@ -29,7 +32,7 @@ const TeamInfo: React.FC<Props> = ({ team, handlePress }) => {
           }}
         />
 
-        <MyAppText textType="semibold" size="md">
+        <MyAppText textType="semibold" color={losing ? "#969696" : colors.text}>
           {team.name}
         </MyAppText>
       </Flex>
@@ -43,5 +46,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     padding: 2
+  },
+  image: {
+    height: 16,
+    width: 16,
+    marginRight: 2
   }
 });

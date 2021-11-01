@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   ticketWinInfo: {
     paddingHorizontal: 12,
     paddingVertical: 8,
-
     justifyContent: "space-between"
   }
 });
