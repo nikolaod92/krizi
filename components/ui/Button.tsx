@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Color from "color";
 import { ActivityIndicator, Pressable, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { useSpring, animated } from "@react-spring/native";
 import MyAppText from "./MyAppText";
 
@@ -33,11 +32,11 @@ const Button: React.FC<Props> = ({ title, color, isLoading, onClick }) => {
     >
       {isLoading ? (
         <animated.View>
-          <ActivityIndicator size="small" color="white" />
+          <ActivityIndicator size='small' color='white' />
         </animated.View>
       ) : (
         <animated.View style={[fadeInProps, styles.button]}>
-          <MyAppText color="white" textType="bold" size="lg" style={styles.text}>
+          <MyAppText color='white' textType='bold' size='lg' style={styles.text}>
             {title}
           </MyAppText>
         </animated.View>

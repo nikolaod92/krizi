@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Pressable, StyleSheet, View, Animated, Vibration } from "react-native";
+import { Pressable, StyleSheet, View, Animated } from "react-native";
 import { RouteProp, useRoute, useTheme } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { changeScore } from "../redux/ticketsSlice";
@@ -56,10 +56,10 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
     >
       <Flex>
         <View style={styles.dateTime}>
-          <MyAppText size="sm" textType="light">
+          <MyAppText size='sm' textType='light'>
             {date}
           </MyAppText>
-          <MyAppText size="sm" textType="light">
+          <MyAppText size='sm' textType='light'>
             {time}
           </MyAppText>
         </View>
@@ -78,19 +78,19 @@ const MatchInfo: React.FC<Props> = ({ match, handleSuccess }) => {
       </Flex>
       <Flex>
         <Pressable style={styles.market} onPress={() => handleSuccess(match.id)}>
-          <MyAppText style={{ letterSpacing: 0.5 }} size="sm" textType="light">
+          <MyAppText style={{ letterSpacing: 0.5 }} size='sm' textType='light'>
             {match.market}
             {match.pointLine && match.pointLine.toFixed(1)}
           </MyAppText>
-          <MyAppText color={match.success ? "green" : colors.text} textType="semibold">
+          <MyAppText color={match.success ? "green" : colors.text} textType='semibold'>
             {match.odds.toFixed(2)}
           </MyAppText>
         </Pressable>
         <View style={{ ...styles.score, borderLeftColor: colors.border }}>
-          <MyAppText textType="semibold" size="lg" color={colors.primary}>
+          <MyAppText textType='semibold' size='lg' color={colors.primary}>
             {match.home.score}
           </MyAppText>
-          <MyAppText textType="semibold" size="lg" color={colors.primary}>
+          <MyAppText textType='semibold' size='lg' color={colors.primary}>
             {match.away.score}
           </MyAppText>
         </View>

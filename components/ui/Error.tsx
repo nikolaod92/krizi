@@ -1,8 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, Pressable } from "react-native";
+import { StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import MyAppText from "./MyAppText";
-import { useTheme } from "@react-navigation/native";
 
 interface Props {
   error: string;
@@ -10,16 +9,15 @@ interface Props {
 }
 
 const Error: React.FC<Props> = ({ error, handlePress }) => {
-  const { colors } = useTheme();
   return (
     <Pressable
       style={{ ...styles.errorContainer, backgroundColor: "#ffa7a1" }}
       onPress={handlePress}
     >
-      <MyAppText size="lg" color="white">
+      <MyAppText size='lg' color='white'>
         {error}
       </MyAppText>
-      <Ionicons name="close" size={20} color="white" />
+      <Ionicons name='close' size={20} color='white' />
     </Pressable>
   );
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import { StyleSheet, Image, Pressable } from "react-native";
 import { Team } from "../types";
 import Flex from "./ui/Flex";
 import MyAppText from "./ui/MyAppText";
@@ -26,7 +26,7 @@ const TeamInfo: React.FC<Props> = ({ team, handlePress, losing }) => {
     >
       <Flex style={styles.container}>
         <Image style={styles.image} source={imageUri} />
-        <MyAppText textType="semibold" color={losing ? "#969696" : colors.text}>
+        <MyAppText textType='semibold' color={losing ? "#969696" : colors.text}>
           {team.name}
         </MyAppText>
       </Flex>

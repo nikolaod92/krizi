@@ -8,6 +8,8 @@ import TicketListItem from "../components/TicketListItem";
 import TicketList from "../components/TicketList";
 import Flex from "./../components/ui/Flex";
 import Error from "./../components/ui/Error";
+
+import { getAllTickets, login } from "../api/fetchFromAccount";
 import { fetchTicket } from "../api/fetch";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +18,7 @@ import { RootState } from "../redux/store";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
 import { playSound } from "../utils/sound";
+import { getResults } from "./../api/results";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
