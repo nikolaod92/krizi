@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "KriziTS",
-    "slug": "KriziTS",
-    "version": "1.0.0",
+    "name": "Krizi",
+    "slug": "Krizi",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -14,9 +14,7 @@
       "fallbackToCacheTimeout": 0
     },
     "userInterfaceStyle": "automatic",
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "userInterfaceStyle": "automatic",
       "supportsTablet": true
