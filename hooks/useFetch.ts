@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { View, Text } from "react-native";
-import axios from "axios";
+import { useEffect } from "react";
+import axios, { AxiosRequestConfig } from "axios";
 
 import { useState } from "react";
 
-const useFetch = (config) => {
+const useFetch = (config: AxiosRequestConfig) => {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({});
-  const [error, setError] = useState({});
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,12 +15,13 @@ const useFetch = (config) => {
         const response = await axios(config);
         setData(response.data);
         setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        }
       }
+      fetchData();
     };
-    fetchData();
   }, []);
 
   return { loading, data, error };
