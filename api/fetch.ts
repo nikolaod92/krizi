@@ -8,14 +8,18 @@ interface TicketResponse {
 }
 
 const getBadge = async (name: string): Promise<string | null> => {
-  const team: AxiosResponse<any> = await axios.get(
-    `https://www.thesportsdb.com/api/v1/json/1/searchteams.php?t=${name}`
-  );
-  if (team.data?.teams) {
-    return team.data?.teams[0].strTeamBadge;
-  } else {
+  try {
+    const team: AxiosResponse<any> = await axios.get(
+      `https://www.thesportsdb.com/api/v1/json/2/searchteams.php?t=${name}`
+    );
+    if (team.data?.teams) {
+      return team.data?.teams[0].strTeamBadge;
+    }
+  } catch (error) {
+    console.log(error);
     return null;
   }
+  return null;
 };
 
 export const fetchTicket = async (pin: string): Promise<TicketResponse> => {
@@ -35,6 +39,7 @@ export const fetchTicket = async (pin: string): Promise<TicketResponse> => {
     const response: AxiosResponse<any> = await axios(config);
     const { stake, maximumPossibleWinAmountWithBonus, pairsCount, pin } = response.data[0];
     const fetchedMatches = response.data[0].ticketSystems[0].ticketPairs;
+    console.log(response);
 
     const matchPromises: Promise<Match>[] = fetchedMatches.map(
       async (match: any): Promise<Match> => {
@@ -74,6 +79,7 @@ export const fetchTicket = async (pin: string): Promise<TicketResponse> => {
       win: formatWin(maximumPossibleWinAmountWithBonus),
       matches
     };
+    console.log(ticket);
   } catch (err) {
     error = {
       message: "Tiket ne postoji."
